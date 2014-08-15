@@ -1,4 +1,10 @@
-YOU NEED TO CONFIGURE TWO FILES.
+You need to install some number of fedora 21+ machines.  Doesn't matter how
+or where or whatever.  Real hardware, VMs, honey badger don't care.
+
+Record the IP address of which machine you want to be your master
+Records the IP address of the machines you want to be your minions.
+
+Stick that information into the two config files.  It should be obvious.
 
 inventory
 group_vars/all.yml
@@ -9,4 +15,7 @@ but for now, it basically the same info you put into the inventory file.
 Then just run:
 ansible-playbook -i inventory setup.yml
 
-and you'll have a running kubernetes cluster!
+Aug 15, 2014 DNF in Fedora is broken.  The first time you run the playbook it
+will tell you that dnf failed and stop running.  Have no fear.  Just run the
+playbook again.  dnf actually worked, and since ansible modules are
+idempotent, there is no harm in doing it again (and again and again)
