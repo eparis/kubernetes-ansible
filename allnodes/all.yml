@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+  #- name: Install dnf
+  #yum: pkg=dnf,dnf-plugins-core state=latest
+  - name: Enable the atomic next copr repo
+    command: "dnf copr enable -y walters/atomic-next"
+    args:
+      creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo
+  #- name: Install kubernetes and etcd
+  #yum: pkg=kubernetes state=latest
+  - name: write the global config file
+    template: src=templates/config.j2 dest=/etc/kubernetes/config

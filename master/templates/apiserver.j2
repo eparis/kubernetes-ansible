@@ -1,0 +1,17 @@
+###
+# kubernetes system config
+#
+# The following values are used to configure the kubernetes-apiserver
+#
+
+# The address on the local server to listen to.
+KUBE_API_ADDRESS="0.0.0.0"
+
+# The port on the local server to listen on.
+KUBE_API_PORT="8080"
+
+# Comma seperated list of minions
+MINION_ADDRESSES="{{ minion_ips }}"
+
+# Port minions listen on
+MINION_PORT="10250"

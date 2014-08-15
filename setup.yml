@@ -1,0 +1,4 @@
+---
+- include: allnodes/all.yml
+- include: master/masters.yml
+- include: minion/minions.yml

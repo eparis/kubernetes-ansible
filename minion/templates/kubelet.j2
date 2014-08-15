@@ -1,0 +1,11 @@
+###
+# kubernetes kublet (minion) config
+
+# The address for the info server to serve on
+MINION_ADDRESS="{{ ansible_default_ipv4.address }}"
+
+# The port for the info server to serve on
+MINION_PORT="10250"
+
+# You may leave this blank to use the actual hostname
+MINION_HOSTNAME="{{ ansible_default_ipv4.address }}"
