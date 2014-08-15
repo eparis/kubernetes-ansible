@@ -7,7 +7,7 @@
     command: "dnf copr enable -y walters/atomic-next"
     args:
       creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo
-  - name: Install kubernetes and etcd
+  - name: Install kubernetes
     yum: pkg=kubernetes state=latest
   - name: write the global config file
     template: src=templates/config.j2 dest=/etc/kubernetes/config
