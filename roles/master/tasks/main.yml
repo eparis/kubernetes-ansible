@@ -1,0 +1,28 @@
+---
+#- name: Install etcd
+#  yum: pkg=etcd state=latest
+
+- name: write the config files for api server
+  template: src=apiserver.j2 dest=/etc/kubernetes/apiserver
+  notify:
+          - restart apiserver
+
+- name: write the config files for controller-manager
+  template: src=controller-manager.j2 dest=/etc/kubernetes/controller-manager
+  notify:
+          - restart controller-manager
+
+- name: Enable etcd
+  service: name=etcd enabled=yes state=started
+
+- name: Enable apiserver
+  service: name=kube-apiserver enabled=yes state=started
+
+- name: Enable controller-manager
+  service: name=kube-controller-manager enabled=yes state=started
+
+- name: Firewalld for etcd
+  firewalld: port=4001/tcp permanent=true state=enabled
+
+- name: Firewalld for apiserver
+  firewalld: port=8080/tcp permanent=true state=enabled

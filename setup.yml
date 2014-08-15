@@ -1,4 +1,10 @@
 ---
-- include: allnodes/all.yml
-- include: master/masters.yml
-- include: minion/minions.yml
+- hosts: masters
+  roles:
+          - common
+          - master
+
+- hosts: minions
+  roles:
+          - common
+          - minion
