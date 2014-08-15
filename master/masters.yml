@@ -1,8 +1,8 @@
 ---
 - hosts: masters
   tasks:
-  #- name: Install etcd
-  #yum: pkg=etcd state=latest
+  - name: Install etcd
+  yum: pkg=etcd state=latest
   - name: write the config files for api server
     template: src=templates/apiserver.j2 dest=/etc/kubernetes/apiserver
   - name: write the config files for controller-manager
