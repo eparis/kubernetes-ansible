@@ -11,7 +11,7 @@ KUBE_API_ADDRESS="0.0.0.0"
 KUBE_API_PORT="8080"
 
 # Comma seperated list of minions
-MINION_ADDRESSES="{{ minion_ips }}"
+MINION_ADDRESSES="{{ groups['minions']|join(',') }}"
 
 # Port minions listen on
 MINION_PORT="10250"
