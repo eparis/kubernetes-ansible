@@ -1,5 +1,5 @@
 master_ip: 10.0.0.1
-etcd_ip: 10.0.0.1
+etcd_ip: 10.0.0.2
 minion_ips: 10.0.0.3,10.0.0.4,10.0.0.5
 
 ansible_ssh_user: root

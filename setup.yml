@@ -1,10 +1,17 @@
 ---
+- hosts: etcd
+  roles:
+          - common
+          - etcd
+
 - hosts: masters
   roles:
           - common
+          - kubernetes
           - master
 
 - hosts: minions
   roles:
           - common
+          - kubernetes
           - minion

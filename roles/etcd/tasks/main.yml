@@ -1,0 +1,14 @@
+---
+- name: Install etcd
+  yum: pkg=etcd state=latest
+
+- name: Write etcd global config file
+  template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf
+  notify:
+        - restart etcd
+
+- name: Enable etcd
+  service: name=etcd enabled=yes state=started
+
+- name: Firewalld for etcd
+  firewalld: port=4001/tcp permanent=true state=enabled
