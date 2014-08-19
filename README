@@ -12,8 +12,19 @@ group_vars/all.yml
 I hope to one day get rid of the need to do anything in group_vars/all.yml
 but for now, it basically the same info you put into the inventory file.
 
+You can use this to deploy your public key to all the nodes.  Just put the root
+pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
+
 Then just run:
+ansible-playbook -i inventory keys.yml
+
+See the comments in keys.yml if you want to deliver keys entering the pword on
+the command line instead of by puting it in a file on the fs.
+
+After the keys are laid down you can do:
 ansible-playbook -i inventory setup.yml
+
+Which should set up etcd, the master, and the minion nodes.
 
 Aug 15, 2014 DNF in Fedora is broken.  The first time you run the playbook it
 will tell you that dnf failed and stop running.  Have no fear.  Just run the

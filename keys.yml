@@ -1,0 +1,16 @@
+# Using this module REQUIRES the sshpass package to be installed!
+#
+# This REQUIRES you have created a ~/.ssh/id_rsa.pub public key
+#
+# Place the root password for all nodes in ~/rootpassword, run this playbook,
+# and it will put your public key on all the nodes.  Then delete rootpassword!
+#
+# You can also comment out the "vars" section and use --ask-pass on the command
+# line.
+---
+- hosts: all
+  vars:
+          ansible_ssh_pass: "{{ lookup('file', '~/rootpassword') }}"
+  tasks:
+          - name: Push rsa public key to all machines
+            authorized_key: user=root key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
