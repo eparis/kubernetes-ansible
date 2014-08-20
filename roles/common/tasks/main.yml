@@ -1,6 +1,6 @@
 ---
 - name: Install dnf
-  yum: pkg=dnf,dnf-plugins-core state=latest
+  yum: pkg=dnf,dnf-plugins-core state=latest disable_gpg_check=yes
 
 - name: Enable the atomic next copr repo
   command: "dnf copr enable -y walters/atomic-next"

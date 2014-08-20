@@ -1,6 +1,6 @@
 ---
 - name: Install etcd
-  yum: pkg=etcd state=latest
+  yum: pkg=etcd state=latest disable_gpg_check=yes
 
 - name: Write etcd global config file
   template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf
