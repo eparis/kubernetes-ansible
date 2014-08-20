@@ -9,12 +9,12 @@ Stick that information into the 'inventory' file
 
 You can use this to deploy your public key to all the nodes.  Just put the root
 pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
+See the comments in keys.yml to explain the failing ping and offer some other
+options.
 
 Then just run:
+ansible-playbook -i inventory ping.yml # This will look like it fails, that's ok
 ansible-playbook -i inventory keys.yml
-
-See the comments in keys.yml if you want to deliver keys entering the pword on
-the command line instead of by puting it in a file on the fs.
 
 After the keys are laid down you can do:
 ansible-playbook -i inventory setup.yml
