@@ -4,5 +4,6 @@
 
 - name: Enable the atomic next copr repo
   command: "dnf copr enable -y walters/atomic-next"
+  ignore_errors: yes # horrific hack until copr stops sucking
   args:
     creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo

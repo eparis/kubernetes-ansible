@@ -21,7 +21,6 @@ ansible-playbook -i inventory setup.yml
 
 Which should set up etcd, the master, and the minion nodes.
 
-Aug 15, 2014 DNF in Fedora is broken.  The first time you run the playbook it
-will tell you that dnf failed and stop running.  Have no fear.  Just run the
-playbook again.  dnf actually worked, and since ansible modules are
-idempotent, there is no harm in doing it again (and again and again)
+Aug 19, 2014
+HORRIFIC_HACK: disable gpg checking on all repos since f21 isn't signed
+HORRIFIC_HACK: ignore errors enabling the copr repo, since it works
