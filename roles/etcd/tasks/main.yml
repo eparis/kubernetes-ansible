@@ -10,5 +10,8 @@
 - name: Enable etcd
   service: name=etcd enabled=yes state=started
 
-- name: Firewalld for etcd
+- name: Open firewalld port for etcd
+  firewalld: port=4001/tcp permanent=false state=enabled
+
+- name: Save firewalld port for etcd
   firewalld: port=4001/tcp permanent=true state=enabled
