@@ -1,4 +1,8 @@
 ---
+- name: Determine if Atomic
+  command: "grep Atomic /etc/redhat-release"
+  register: is_atomic
+
 - name: Install etcd
   yum: pkg=etcd state=latest disable_gpg_check=yes
 
@@ -12,6 +16,17 @@
 
 - name: Open firewalld port for etcd
   firewalld: port=4001/tcp permanent=false state=enabled
+  when: is_atomic|failed
 
 - name: Save firewalld port for etcd
   firewalld: port=4001/tcp permanent=true state=enabled
+  when: is_atomic|failed
+
+- name: Open ports with iptables
+  command: /sbin/iptables -I INPUT 1 -p tcp --dport 4001 -j ACCEPT
+  when: is_atomic|success
+
+
+- name: Save iptables rules
+  command: iptables-save
+  when: is_atomic|success

@@ -1,9 +1,15 @@
 ---
+- name: Determine if Atomic
+  command: "grep Atomic /etc/redhat-release"
+  register: is_atomic
+
 - name: Install dnf
   yum: pkg=dnf,dnf-plugins-core state=latest disable_gpg_check=yes
+  when: is_atomic|failed
 
 - name: Enable the atomic next copr repo
   command: "dnf copr enable -y walters/atomic-next"
   ignore_errors: yes # horrific hack until copr stops sucking
   args:
     creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo
+  when: is_atomic|failed
