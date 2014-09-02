@@ -11,7 +11,7 @@
   service: name=etcd enabled=yes state=started
 
 - include: firewalld.yml
-  when: is_atomic.rc != 0
+  when: has_firewalld.rc == 0
 
 - include: iptables.yml
-  when: is_atomic.rc == 0
+  when: has_firewalld.rc != 0
