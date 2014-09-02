@@ -1,8 +1,4 @@
 ---
-- name: Determine if Atomic
-  command: "grep Atomic /etc/redhat-release"
-  register: is_atomic
-
 - name: Install etcd
   yum: pkg=etcd state=latest disable_gpg_check=yes
 
