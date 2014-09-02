@@ -10,19 +10,8 @@
 - name: Enable etcd
   service: name=etcd enabled=yes state=started
 
-- name: Open firewalld port for etcd
-  firewalld: port=4001/tcp permanent=false state=enabled
-  when: is_atomic|failed
+- include: firewalld.yml
+  when: is_atomic.rc != 0
 
-- name: Save firewalld port for etcd
-  firewalld: port=4001/tcp permanent=true state=enabled
-  when: is_atomic|failed
-
-- name: Open ports with iptables
-  command: /sbin/iptables -I INPUT 1 -p tcp --dport 4001 -j ACCEPT
-  when: is_atomic|success
-
-
-- name: Save iptables rules
-  command: iptables-save
-  when: is_atomic|success
+- include: iptables.yml
+  when: is_atomic.rc == 0

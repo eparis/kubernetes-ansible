@@ -15,20 +15,8 @@
 - name: Enable controller-manager
   service: name=kube-controller-manager enabled=yes state=started
 
-- name: Open firewalld port for apiserver
-  firewalld: port=8080/tcp permanent=false state=enabled
-  when: is_atomic|failed
+- include: firewalld.yml
+  when: is_atomic.rc != 0
 
-- name: Save firewalld port for apiserver
-  firewalld: port=8080/tcp permanent=true state=enabled
-  when: is_atomic|failed
-
-- name: Open ports with iptables
-  command: /sbin/iptables -I INPUT 1 -p tcp --dport 8080 -j ACCEPT
-  when: is_atomic|success
-
-
-- name: Save iptables rules
-  command: iptables-save
-  when: is_atomic|success
-
+- include: iptables.yml
+  when: is_atomic.rc == 0

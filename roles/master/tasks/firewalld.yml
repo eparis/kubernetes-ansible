@@ -1,0 +1,6 @@
+---
+- name: Open firewalld port for apiserver
+  firewalld: port=8080/tcp permanent=false state=enabled
+
+- name: Save firewalld port for apiserver
+  firewalld: port=8080/tcp permanent=true state=enabled
