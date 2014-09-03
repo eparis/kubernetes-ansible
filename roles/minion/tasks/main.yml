@@ -22,4 +22,4 @@
   when: has_firewalld.rc == 0
 
 - include: iptables.yml
-  when: has_firewalld.rc != 0
+  when: has_firewalld.rc != 0 and has_iptables.rc == 0

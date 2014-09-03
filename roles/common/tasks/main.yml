@@ -11,5 +11,11 @@
   ignore_errors: yes
   changed_when: false
 
+- name: Determine if iptables-services installed
+  command: "rpm -q iptables-services"
+  register: has_iptables
+  ignore_errors: yes
+  changed_when: false
+
 - include: kube-copr.yml
   when: is_atomic.rc != 0
