@@ -2,14 +2,20 @@
 - name: Determine if Atomic
   command: "grep Atomic /etc/redhat-release"
   register: is_atomic
+  ignore_errors: yes
+  changed_when: false
 
-- name: Install dnf
-  yum: pkg=dnf,dnf-plugins-core state=latest disable_gpg_check=yes
-  when: is_atomic|failed
+- name: Determine if firewalld installed
+  command: "rpm -q firewalld"
+  register: has_firewalld
+  ignore_errors: yes
+  changed_when: false
 
-- name: Enable the atomic next copr repo
-  command: "dnf copr enable -y walters/atomic-next"
-  ignore_errors: yes # horrific hack until copr stops sucking
-  args:
-    creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo
-  when: is_atomic|failed
+- name: Determine if iptables-services installed
+  command: "rpm -q iptables-services"
+  register: has_iptables
+  ignore_errors: yes
+  changed_when: false
+
+- include: kube-copr.yml
+  when: is_atomic.rc != 0

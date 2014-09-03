@@ -18,20 +18,8 @@
 - name: Enable proxy
   service: name=kube-proxy enabled=yes state=started
 
-- name: Open firewalld port for the kubelet
-  firewalld: port=10250/tcp permanent=false state=enabled
-  when: is_atomic|failed
+- include: firewalld.yml
+  when: has_firewalld.rc == 0
 
-- name: Save firewalld port for the kubelet
-  firewalld: port=10250/tcp permanent=true state=enabled
-  when: is_atomic|failed
-
-- name: Open ports with iptables
-  command: /sbin/iptables -I INPUT 1 -p tcp --dport 10250 -j ACCEPT
-  when: is_atomic|success
-
-
-- name: Save iptables rules
-  command: iptables-save
-  when: is_atomic|success
-
+- include: iptables.yml
+  when: has_firewalld.rc != 0 and has_iptables.rc == 0
