@@ -10,7 +10,7 @@
           - restart proxy
 
 - name: Enable docker
-  service: name=docker enabled=yes state=started
+  service: name=docker.socket enabled=yes state=started
 
 - name: Enable kubelet
   service: name=kubelet enabled=yes state=started
