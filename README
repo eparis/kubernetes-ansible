@@ -24,3 +24,6 @@ Which should set up etcd, the master, and the minion nodes.
 Aug 19, 2014
 HORRIFIC_HACK: disable gpg checking on all repos since f21 isn't signed
 HORRIFIC_HACK: ignore errors enabling the copr repo, since it works
+SHOULD_BE_REMOVED: All code pertaining to support for kube before the scheduler
+		Namely the controller-manager config file and the conditional
+		enable/restart sections
