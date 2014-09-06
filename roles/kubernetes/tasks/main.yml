@@ -1,6 +1,8 @@
 ---
 - name: Install kubernetes
   yum: pkg=kubernetes state=latest disable_gpg_check=yes
+  notify:
+          - restart daemons
 
 - name: write the global config file
   template: src=config.j2 dest=/etc/kubernetes/config
