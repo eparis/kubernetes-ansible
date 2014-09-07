@@ -9,8 +9,17 @@
   notify:
           - restart proxy
 
+- name: Make sure cadvisor is up to date
+  yum: pkg=cadvisor state=latest disable_gpg_check=yes
+  notify:
+          - restart cadvisor
+          - restart kubelet
+
 - name: Enable docker
   service: name=docker.socket enabled=yes state=started
+
+- name: Enable cadvisor
+  service: name=cadvisor enabled=yes state=started
 
 - name: Enable kubelet
   service: name=kubelet enabled=yes state=started
