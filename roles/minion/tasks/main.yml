@@ -15,6 +15,8 @@
           - restart cadvisor
           - restart kubelet
 
+- include: network_hack.yml
+
 - name: Enable docker
   service: name=docker.socket enabled=yes state=started
 
