@@ -6,6 +6,7 @@
 
 - name: Touch file indicating interface has been created
   file: path=/etc/kubernetes/bridge state=touch
+  changed_when: false
 
 - name: Set up a static routing table
   template: src=routing_table.j2 dest=/etc/sysconfig/network-scripts/route-eth0
