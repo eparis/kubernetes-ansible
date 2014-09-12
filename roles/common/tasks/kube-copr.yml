@@ -1,9 +1,16 @@
 ---
 - name: Install dnf
   yum: pkg=dnf,dnf-plugins-core state=latest disable_gpg_check=yes
+  when: is_rhel7.rc != 0
 
-- name: Enable the atomic next copr repo
+- name: Enable the Fedora Kubernetes copr repo
   command: "dnf copr enable -y walters/atomic-next"
   ignore_errors: yes # horrific hack until copr stops sucking
   args:
     creates: /etc/yum.repos.d/_copr_walters-atomic-next.repo
+  when: is_rhel7.rc != 0
+
+# https://copr.fedoraproject.org/coprs/eparis/kubernetes-epel-7/repo/epel-7/eparis-kubernetes-epel-7-epel-7.repo
+- name: Enable the RHEL7 Kubernetes copr repo
+  copy: src=eparis-kubernetes-epel-7.repo dest=/etc/yum.repos.d/eparis-kubernetes-epel-7.repo
+  when: is_rhel7.rc == 0
