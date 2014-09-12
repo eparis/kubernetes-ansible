@@ -1,0 +1,5 @@
+---
+- name: Set up a static routing table
+  template: src=routing_table.j2 dest=/etc/sysconfig/network-scripts/route-eth0
+  notify:
+          - apply manually

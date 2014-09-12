@@ -8,12 +8,5 @@
   file: path=/etc/kubernetes/bridge state=touch
   changed_when: false
 
-- name: Set up a static routing table
-  template: src=routing_table.j2 dest=/etc/sysconfig/network-scripts/route-eth0
-  notify:
-          - restart network
-
 - name: Configure docker to use the bridge inferface
-  template: src=docker dest=/etc/sysconfig/docker
-  notify:
-          - restart docker
+  copy: src=docker dest=/etc/sysconfig/docker

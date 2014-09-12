@@ -1,0 +1,2 @@
+- name: apply manually
+  script: restart-interface.sh

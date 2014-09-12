@@ -12,6 +12,14 @@
 
 - hosts: minions
   roles:
+          - network-hack-bridge
+
+- hosts: minions
+  roles:
+          - network-hack-routes
+
+- hosts: minions
+  roles:
           - common
           - kubernetes
           - minion

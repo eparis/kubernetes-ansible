@@ -1,11 +1,16 @@
-You need to install some number of fedora 21+ machines.  Doesn't matter how
+You need to install some number of fedora 20+ or RHEL machines.  Doesn't matter how
 or where or whatever.  Real hardware, VMs, honey badger don't care.
 
 Record the IP address of which machine you want to be your master
 Record the IP address of the machine you want to be your etcd server
-Records the IP address of the machines you want to be your minions.
+Record the IP addresses of the machines you want to be your minions.
 
-Stick that information into the 'inventory' file
+Decide what /24 network each one of your minions should use to expose pods.  You
+need a /24 for EACH minion.
+
+Stick that information into the 'inventory' file.
+
+The network ranges you picked above go in their respective kube_ip_addr= vars.
 
 You can use this to deploy your public key to all the nodes.  Just put the root
 pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
