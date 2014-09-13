@@ -1,6 +1,10 @@
 ---
 - name: Open firewalld port for etcd
   firewalld: port=4001/tcp permanent=false state=enabled
+  # in case this is also a minion where firewalld turned off
+  ignore_errors: yes
 
 - name: Save firewalld port for etcd
   firewalld: port=4001/tcp permanent=true state=enabled
+  # in case this is also a minion where firewalld turned off
+  ignore_errors: yes
