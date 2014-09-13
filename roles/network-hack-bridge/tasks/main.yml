@@ -1,6 +1,6 @@
 ---
 - name: Create kubernetes bridge interface
-  command: nmcli connection add type bridge ifname kbr0 con-name kubernetes-bridge save yes ip4 {{ kube_ip_addr }}/24
+  command: nmcli connection add type bridge ifname kbr0 con-name kubernetes-bridge ip4 {{ kube_ip_addr }}/24
   args:
         creates: /etc/sysconfig/network-scripts/ifcfg-kubernetes-bridge
 
