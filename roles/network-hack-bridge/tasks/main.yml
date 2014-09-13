@@ -2,11 +2,7 @@
 - name: Create kubernetes bridge interface
   command: nmcli connection add type bridge ifname kbr0 con-name kubernetes-bridge save yes ip4 {{ kube_ip_addr }}/24
   args:
-        creates: /etc/kubernetes/bridge
-
-- name: Touch file indicating interface has been created
-  file: path=/etc/kubernetes/bridge state=touch
-  changed_when: false
+        creates: /etc/sysconfig/network-scripts/ifcfg-kubernetes-bridge
 
 - name: Configure docker to use the bridge inferface
   copy: src=docker dest=/etc/sysconfig/docker
