@@ -11,6 +11,12 @@
   ignore_errors: yes
   changed_when: false
 
+- include: rhel7_repos.yml
+  when: is_rhel7.rc == 0 and is_atomic.rc != 0
+
+- include: fedora_repos.yml
+  when: is_rhel7.rc != 0 and is_atomic.rc != 0
+
 - name: Determine if firewalld installed
   command: "rpm -q firewalld"
   register: has_firewalld
@@ -22,6 +28,3 @@
   register: has_iptables
   ignore_errors: yes
   changed_when: false
-
-- include: kube-copr.yml
-  when: is_atomic.rc != 0
