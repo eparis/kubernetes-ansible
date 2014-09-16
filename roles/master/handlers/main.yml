@@ -1,6 +1,6 @@
 ---
 - name: restart daemons
-  local_action: command /bin/true
+  command: /bin/true
   notify:
           - restart apiserver
           - restart controller-manager
