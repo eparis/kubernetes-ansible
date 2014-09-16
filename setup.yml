@@ -1,24 +1,29 @@
 ---
 - hosts: etcd
+  sudo: yes
   roles:
           - common
           - etcd
 
 - hosts: masters
+  sudo: yes
   roles:
           - common
           - kubernetes
           - master
 
 - hosts: minions
+  sudo: yes
   roles:
           - network-hack-bridge
 
 - hosts: minions
+  sudo: yes
   roles:
           - network-hack-routes
 
 - hosts: minions
+  sudo: yes
   roles:
           - common
           - kubernetes
