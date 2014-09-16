@@ -1,2 +1,15 @@
-- name: apply manually
-  script: restart-interface.sh
+- name: apply changes
+  command: /bin/true
+  notify:
+        - upload script
+        - run script
+        - remove script
+
+- name: upload script
+  template: src=restart-interface.sh.j2 dest=~/restart-interface.sh mode=500
+
+- name: run script
+  command: ~/restart-interface.sh
+
+- name: remove script
+  command: rm ~/restart-interface.sh

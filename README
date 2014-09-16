@@ -17,14 +17,18 @@ pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
 See the comments in keys.yml to explain the failing ping and offer some other
 options.
 
-Then just run:
+# To accept the ssh host key and put your ssh pub key on the nodes:
 ansible-playbook -i inventory ping.yml # This will look like it fails, that's ok
 ansible-playbook -i inventory keys.yml
 
-After the keys are laid down you can do:
+# To create a hacked up set up using static networking:
+ansible-playbook -i inventory hack-network.yml
+
+# Set up the actual clust
 ansible-playbook -i inventory setup.yml
 
-Which should set up etcd, the master, and the minion nodes.
+Which should set up the one master and an unlimited number of RHEL7,
+F20, F21, or rawhide.
 
 Aug 19, 2014
 HORRIFIC_HACK: disable gpg checking on all repos since f21 isn't signed
