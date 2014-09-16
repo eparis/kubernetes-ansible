@@ -15,9 +15,6 @@
           - restart cadvisor
           - restart kubelet
 
-- name: Enable docker
-  service: name=docker.socket enabled=yes state=started
-
 - name: Enable cadvisor
   service: name=cadvisor enabled=yes state=started
 
