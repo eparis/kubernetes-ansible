@@ -5,30 +5,36 @@ Record the IP address of which machine you want to be your master
 Record the IP address of the machine you want to be your etcd server
 Record the IP addresses of the machines you want to be your minions.
 
-Decide what /24 network each one of your minions should use to expose pods.  You
-need a /24 for EACH minion.
+Stick the system information into the 'inventory' file.  (ignore the
+kube_ip_addr option until the network setup)
 
-Stick that information into the 'inventory' file.
-
-The network ranges you picked above go in their respective kube_ip_addr= vars.
+#### To set up ssh access via public keys ###################
 
 You can use this to deploy your public key to all the nodes.  Just put the root
 pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
 See the comments in keys.yml to explain the failing ping and offer some other
 options.
 
-# To accept the ssh host key and put your ssh pub key on the nodes:
-ansible-playbook -i inventory ping.yml # This will look like it fails, that's ok
-ansible-playbook -i inventory keys.yml
+$ ansible-playbook -i inventory ping.yml # This will look like it fails, that's ok
+$ ansible-playbook -i inventory keys.yml
 
-# To create a hacked up set up using static networking:
-ansible-playbook -i inventory hack-network.yml
+#### To set up a hackish static networking for the pods #####
 
-# Set up the actual clust
-ansible-playbook -i inventory setup.yml
+Decide what /24 network each one of your minions should use to expose pods.  You
+need a /24 for EACH minion.
+The network ranges you picked above go in their respective kube_ip_addr= vars.
 
-Which should set up the one master and an unlimited number of RHEL7,
-F20, F21, or rawhide.
+$ ansible-playbook -i inventory hack-network.yml
+
+#### To set up the actual kubernetes cluster ###############
+
+You already did the config!  Just run the setup.
+
+$ ansible-playbook -i inventory setup.yml
+
+This works on RHEL7, Atomic, F20, F21 and rawhide.
+
+For RHEL7 it will set up rhn subscriptions.  Put your username in a file named: ~/rhn_username.  Put your rhn password into a file named ~/rhn_username
 
 Aug 19, 2014
 HORRIFIC_HACK: disable gpg checking on all repos since f21 isn't signed
