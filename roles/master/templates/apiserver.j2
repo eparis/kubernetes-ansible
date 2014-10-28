@@ -20,7 +20,7 @@ MINION_ADDRESSES="--machines={{ groups['minions']|join(',') }}"
 MINION_PORT="--minion_port=10250"
 
 # Address range to use for services
-KUBE_SERVICE_ADDRESSES="--portal_net=10.254.0.0/16"
+KUBE_SERVICE_ADDRESSES="--portal_net={{ kube_service_addresses }}"
 
 # Add you own!
 KUBE_API_ARGS=""

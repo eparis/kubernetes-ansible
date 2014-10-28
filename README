@@ -26,6 +26,14 @@ The network ranges you picked above go in their respective kube_ip_addr= vars.
 
 $ ansible-playbook -i inventory hack-network.yml
 
+#### Set up the services IP addresses ######################
+
+Kubernetes services have fake IP addresses.  You must specify a range of IP
+addresses which will not conflict with anything in your infrastructure which
+kube can use for services.  To do so edit:
+
+group_vars/all.yml
+
 #### To set up the actual kubernetes cluster ###############
 
 You already did the config!  Just run the setup.
@@ -35,10 +43,3 @@ $ ansible-playbook -i inventory setup.yml
 This works on RHEL7, Atomic, F20, F21 and rawhide.
 
 For RHEL7 it will set up rhn subscriptions.  Put your username in a file named: ~/rhn_username.  Put your rhn password into a file named ~/rhn_username
-
-Aug 19, 2014
-HORRIFIC_HACK: disable gpg checking on all repos since f21 isn't signed
-HORRIFIC_HACK: ignore errors enabling the copr repo, since it works
-SHOULD_BE_REMOVED: All code pertaining to support for kube before the scheduler
-		Namely the controller-manager config file and the conditional
-		enable/restart sections
