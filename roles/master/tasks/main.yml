@@ -1,10 +1,4 @@
 ---
-- name: Determine if we have kube-scheduler
-  stat: path=/usr/lib/systemd/system/kube-scheduler.service
-  register: scheduler
-  ignore_errors: yes
-  changed_when: false
-
 - name: write the config files for api server
   template: src=apiserver.j2 dest=/etc/kubernetes/apiserver
   notify:
@@ -12,22 +6,15 @@
           - restart controller-manager
           - restart scheduler
 
-# Before the existence of the scheduler, we needed a config
-# file for the replication controller.  After the scheduler
-# was added this config moved into the apiserver
-- name: write the old outdated config files for controller-manager
-  template: src=controller-manager.old.j2 dest=/etc/kubernetes/controller-manager
-  when: scheduler.stat.exists == False
+- name: write the config file for controller-manager
+  copy: src=controller-manager dest=/etc/kubernetes/controller-manager
   notify:
           - restart controller-manager
 
-# Just drop a blank config file so on update old info doesn't
-# overwrite the new stuff in the apiserver config file
-- name: write the config files for controller-manager
-  template: src=controller-manager.j2 dest=/etc/kubernetes/controller-manager
-  when: scheduler.stat.exists
+- name: write the config file for scheduler
+  copy: src=scheduler dest=/etc/kubernetes/scheduler
   notify:
-          - restart controller-manager
+          - restart scheduler
 
 - name: Enable apiserver
   service: name=kube-apiserver enabled=yes state=started
@@ -37,7 +24,6 @@
 
 - name: Enable scheduler
   service: name=kube-scheduler enabled=yes state=started
-  when: scheduler.stat.exists
 
 - include: firewalld.yml
   when: has_firewalld.rc == 0

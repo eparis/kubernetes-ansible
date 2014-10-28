@@ -5,12 +5,12 @@
           - restart kubelet
 
 - name: write the config files for proxy
-  template: src=proxy.j2 dest=/etc/kubernetes/proxy
+  copy: src=proxy dest=/etc/kubernetes/proxy
   notify:
           - restart proxy
 
 - name: Make sure cadvisor is up to date
-  yum: pkg=cadvisor state=latest disable_gpg_check=yes
+  yum: pkg=cadvisor state=latest enablerepo=updates-testing
   notify:
           - restart cadvisor
           - restart kubelet

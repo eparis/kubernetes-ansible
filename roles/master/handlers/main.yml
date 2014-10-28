@@ -14,7 +14,6 @@
 
 - name: restart scheduler
   service: name=kube-scheduler state=restarted
-  when: scheduler.stat.exists
 
 - name: restart iptables
   service: name=iptables state=restarted
