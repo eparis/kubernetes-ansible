@@ -1,12 +1,9 @@
 ---
-- name: Remove docker window manager on F20
-  yum: pkg=docker state=absent
-  when: is_f20.rc == 0
+- include: fedora.yml
+  when: is_rhel7.rc != 0
 
-- name: Install kubernetes
-  yum: pkg=kubernetes state=latest disable_gpg_check=yes
-  notify:
-          - restart daemons
+- include: rhel7.yml
+  when: is_rhel7.rc == 0
 
 - name: write the global config file
   template: src=config.j2 dest=/etc/kubernetes/config

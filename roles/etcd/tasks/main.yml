@@ -1,8 +1,9 @@
 ---
-- name: Install etcd
-  yum: pkg=etcd state=latest disable_gpg_check=yes
-  notify:
-        - restart etcd
+- include: fedora.yml
+  when: is_rhel7.rc != 0
+
+- include: rhel7.yml
+  when: is_rhel7.rc == 0
 
 - name: Write etcd global config file
   template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf

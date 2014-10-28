@@ -1,0 +1,6 @@
+---
+- name: Install etcd from RHEL7 packages
+  yum: pkg=etcd state=latest
+  when: is_rhel7.rc == 0
+  notify:
+          - restart etcd

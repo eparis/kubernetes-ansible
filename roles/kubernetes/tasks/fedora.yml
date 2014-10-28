@@ -1,0 +1,15 @@
+---
+- name: Determine if Fedora 20
+  shell: "grep 'Fedora release 20 (Heisenbug)' /etc/fedora-release"
+  register: is_f20
+  ignore_errors: yes
+  changed_when: false
+
+- name: Remove docker window manager on F20
+  yum: pkg=docker state=absent
+  when: is_f20.rc == 0
+
+- name: Install kubernetes from Fedora updates-testing
+  yum: pkg=kubernetes state=latest enablerepo=updates-testing
+  notify:
+          - restart daemons

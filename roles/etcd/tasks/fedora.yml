@@ -1,0 +1,5 @@
+---
+- name: Install etcd from Fedora updates-testing
+  yum: pkg=etcd state=latest enablerepo=updates-testing
+  notify:
+          - restart etcd
