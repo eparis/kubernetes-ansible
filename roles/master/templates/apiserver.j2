@@ -14,10 +14,10 @@ KUBE_API_PORT="--port=8080"
 KUBE_MASTER="--master={{ groups['masters'][0] }}:8080"
 
 # Comma seperated list of minions
-MINION_ADDRESSES="--machines={{ groups['minions']|join(',') }}"
+KUBELET_ADDRESSES="--machines={{ groups['minions']|join(',') }}"
 
 # Port minions listen on
-MINION_PORT="--minion_port=10250"
+KUBELET_PORT="--kubelet_port=10250"
 
 # Address range to use for services
 KUBE_SERVICE_ADDRESSES="--portal_net={{ kube_service_addresses }}"
