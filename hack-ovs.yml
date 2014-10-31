@@ -1,0 +1,5 @@
+---
+- hosts: minions
+  sudo: yes
+  roles:
+          - network-hack-ovs
