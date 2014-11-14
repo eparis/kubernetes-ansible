@@ -42,4 +42,4 @@ $ ansible-playbook -i inventory setup.yml
 
 This works on RHEL7, Atomic, F20, F21 and rawhide.
 
-For RHEL7 it will set up rhn subscriptions.  Put your username in a file named: ~/rhn_username.  Put your rhn password into a file named ~/rhn_username
+For RHEL7 it will set up rhn subscriptions.  Put your username in a file named: ~/rhn_username.  Put your rhn password into a file named ~/rhn_password
