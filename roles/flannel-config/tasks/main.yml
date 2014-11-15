@@ -1,0 +1,9 @@
+---
+- name: Copy the configure script
+  template: src=config-flannel.sh.j2 dest=~/config-flannel.sh mode=755
+
+- name: Run the configure script
+  command: ~/config-flannel.sh
+
+- name: Remove the configure script
+  file: name=~/config-flannel.sh state=absent

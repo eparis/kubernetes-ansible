@@ -1,0 +1,21 @@
+[Unit]
+Description=Docker Application Container Engine
+Documentation=http://docs.docker.com
+After=network.target docker.socket flanneld-wait-online.service
+Requires=docker.socket
+Wants=flanneld-wait-online.service
+
+[Service]
+Type=notify
+EnvironmentFile=-/etc/sysconfig/docker
+EnvironmentFile=-/etc/sysconfig/docker-storage
+EnvironmentFile=-/var/run/flannel/subnet.env
+
+ExecStart=/bin/sh -c "if [ -n \"$FLANNEL_SUBNET\" ]; then export OPTIONS=\"$OPTIONS --bip=$FLANNEL_SUBNET\"; fi; \
+		if [ -n \"$FLANNEL_MTU\" ]; then export OPTIONS=\"$OPTIONS --mtu=$FLANNEL_MTU\"; fi; \
+exec /usr/bin/docker -d -H fd:// $OPTIONS $DOCKER_STORAGE_OPTIONS"
+LimitNOFILE=1048576
+LimitNPROC=1048576
+
+[Install]
+WantedBy=multi-user.target

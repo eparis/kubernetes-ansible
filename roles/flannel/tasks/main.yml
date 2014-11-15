@@ -1,0 +1,19 @@
+---
+- name: Install nhorman Flannel yum repo file
+  copy: src=flannel.repo dest=/etc/yum.repos.d/
+
+- name: Install flannel
+  yum: name=flannel state=latest
+
+- name: Install Flannel config file
+  template: src=flanneld.j2 dest=/etc/sysconfig/flanneld
+  notify:
+          - restart flannel
+
+- name: Launch Flannel
+  service: name=flanneld state=started enabled=yes
+
+- name: Install HACKY docker.service file
+  copy: src=docker.service dest=/etc/systemd/system/
+  notify:
+          - restart docker
