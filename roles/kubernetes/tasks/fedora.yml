@@ -9,7 +9,7 @@
   yum: pkg=docker state=absent
   when: is_f20.rc == 0
 
-- name: Install kubernetes from Fedora updates-testing
-  yum: pkg=kubernetes state=latest enablerepo=updates-testing
+- name: Install kubernetes from Fedora
+  yum: pkg=kubernetes state=latest
   notify:
           - restart daemons

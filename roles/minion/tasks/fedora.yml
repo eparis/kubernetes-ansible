@@ -1,5 +1,5 @@
 ---
 - name: Make sure cadvisor is up to date
-  yum: pkg=cadvisor state=latest enablerepo=updates-testing
+  yum: pkg=cadvisor state=latest
   notify:
           - restart cadvisor
