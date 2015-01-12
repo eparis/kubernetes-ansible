@@ -1,20 +1,22 @@
 ---
-- hosts: etcd
+- hosts: all
   sudo: yes
   roles:
           - common
+
+- hosts: etcd
+  sudo: yes
+  roles:
           - etcd
 
 - hosts: masters
   sudo: yes
   roles:
-          - common
           - kubernetes
           - master
 
 - hosts: minions
   sudo: yes
   roles:
-          - common
           - kubernetes
           - minion
