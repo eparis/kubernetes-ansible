@@ -15,4 +15,4 @@ KUBELET_HOSTNAME="--hostname_override={{ ansible_default_ipv4.address }}"
 {% endif %}
 
 # Add your own!
-KUBELET_ARGS=""
+KUBELET_ARGS="--api_servers=\"{{ groups['masters'][0] }}:8080\""
