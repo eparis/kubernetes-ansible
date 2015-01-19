@@ -1,4 +1,9 @@
 ---
+- hosts: all
+  sudo: yes
+  roles:
+          - common
+
 - hosts: etcd
   sudo: yes
   roles:
