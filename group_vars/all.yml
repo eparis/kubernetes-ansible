@@ -2,4 +2,3 @@ ansible_ssh_user: root
 kube_service_addresses: 10.254.0.0/16
 kube_overlay_ip: 4.0.0.0
 kube_overlay_prefix: 16
-use_node_hostnames: False
