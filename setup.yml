@@ -9,14 +9,19 @@
   roles:
           - etcd
 
-- hosts: masters
+- hosts:
+        - masters
+        - minions
   sudo: yes
   roles:
           - kubernetes
+
+- hosts: masters
+  sudo: yes
+  roles:
           - master
 
 - hosts: minions
   sudo: yes
   roles:
-          - kubernetes
           - minion
