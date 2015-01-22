@@ -1,20 +1,13 @@
 ---
-- hosts: all
-  sudo: yes
-  roles:
-          - common
-
 - hosts: etcd
   sudo: yes
   roles:
           - flannel-config
 
-- hosts: masters
+- hosts:
+        - masters
+        - minions
   sudo: yes
   roles:
-          - flannel
-
-- hosts: minions
-  sudo: yes
-  roles:
+          - common
           - flannel
