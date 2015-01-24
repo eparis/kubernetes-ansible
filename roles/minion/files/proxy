@@ -4,4 +4,4 @@
 # default config should be adequate
 
 # Add your own!
-KUBE_PROXY_ARGS=""
+KUBE_PROXY_ARGS="--bind_address=0.0.0.0"
