@@ -16,3 +16,4 @@
   service: name=flanneld state=started enabled=yes
   notify:
           - restart docker
+          - restart kubelet

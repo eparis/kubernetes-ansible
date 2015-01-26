@@ -11,4 +11,4 @@ KUBELET_PORT="--port=10250"
 KUBELET_HOSTNAME="--hostname_override={{ inventory_hostname }}"
 
 # Add your own!
-KUBELET_ARGS="--api_servers=\"{{ groups['masters'][0] }}:8080\""
+KUBELET_ARGS=""
