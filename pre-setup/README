@@ -1,0 +1,17 @@
+#### To set up ssh access via public keys ###################
+
+You can use this to deploy your public key to all the nodes.  Just put the root
+pword for all nodes in ~/rootpassword and make sure you have sshpass installed.
+See the comments in keys.yml to explain the failing ping and offer some other
+options.
+
+$ ansible-playbook -i inventory ping.yml # This will look like it fails, that's ok
+$ ansible-playbook -i inventory keys.yml
+
+#### To set up a hackish static networking for the pods #####
+
+Decide what /24 network each one of your minions should use to expose pods.  You
+need a /24 for EACH minion.
+The network ranges you picked above go in their respective kube_ip_addr= vars.
+
+$ ansible-playbook -i inventory hack-network.yml
