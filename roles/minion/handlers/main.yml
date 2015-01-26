@@ -19,7 +19,3 @@
 
 - name: restart docker
   command: /bin/sh -c 'systemctl stop docker && ip link delete docker0 && systemctl start docker'
-
-# OK, so it really reboots, sue me
-- name: restart network
-  command: shutdown -r now
