@@ -3,7 +3,17 @@
   service: name=flanneld state=restarted
 
 - name: restart docker
-  command: /bin/sh -c 'systemctl stop docker && ip link delete docker0 && systemctl start docker'
+  service: name=docker state=stopped
+  notify:
+          - delete docker0
+          - start docker
+
+- name: delete docker0
+  command: ip link delete docker0
+  ignore_errors: yes
+
+- name: start docker
+  service: name=docker state=started
 
 - name: restart kubelet
   service: name=kubelet state=restarted

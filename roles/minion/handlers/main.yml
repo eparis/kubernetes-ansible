@@ -18,4 +18,4 @@
   service: name=iptables state=restarted
 
 - name: restart docker
-  command: /bin/sh -c 'systemctl stop docker && ip link delete docker0 && systemctl start docker'
+  service: name=docker state=restarted
