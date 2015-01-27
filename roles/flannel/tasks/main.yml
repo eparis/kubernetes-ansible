@@ -15,5 +15,7 @@
 - name: Launch Flannel
   service: name=flanneld state=started enabled=yes
   notify:
-          - restart docker
+          - stop docker
+          - delete docker0
+          - start docker
           - restart kubelet

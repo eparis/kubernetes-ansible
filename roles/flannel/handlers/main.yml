@@ -1,12 +1,13 @@
 ---
 - name: restart flannel
   service: name=flanneld state=restarted
-
-- name: restart docker
-  service: name=docker state=stopped
   notify:
+          - stop docker
           - delete docker0
           - start docker
+
+- name: stop docker
+  service: name=docker state=stopped
 
 - name: delete docker0
   command: ip link delete docker0

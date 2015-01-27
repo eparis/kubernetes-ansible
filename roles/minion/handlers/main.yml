@@ -16,6 +16,3 @@
 
 - name: restart iptables
   service: name=iptables state=restarted
-
-- name: restart docker
-  service: name=docker state=restarted
