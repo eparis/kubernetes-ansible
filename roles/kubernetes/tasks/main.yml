@@ -9,3 +9,6 @@
   template: src=config.j2 dest=/etc/kubernetes/config
   notify:
           - restart daemons
+
+- name: collect facts about the version of kubernetes
+  kube-caps:

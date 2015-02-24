@@ -13,9 +13,6 @@ KUBE_API_ADDRESS="--address=0.0.0.0"
 # How the replication controller and scheduler find the kube-apiserver
 KUBE_MASTER="--master=http://{{ groups['masters'][0] }}:8080"
 
-# Comma seperated list of minions
-KUBELET_ADDRESSES="--machines={{ groups['minions']|join(',') }}"
-
 # Port minions listen on
 # KUBELET_PORT="--kubelet_port=10250"
 

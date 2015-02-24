@@ -6,15 +6,8 @@
           - restart controller-manager
           - restart scheduler
 
-- name: write the new style config file for controller-manager
+- name: write the config file for controller-manager
   copy: src=controller-manager dest=/etc/kubernetes/controller-manager
-  when: kube_node_via_api
-  notify:
-          - restart controller-manager
-
-- name: write the old style config file for controller-manager
-  template: src=controller-manager-old.j2 dest=/etc/kubernetes/controller-manager
-  when: not kube_node_via_api
   notify:
           - restart controller-manager
 
@@ -32,8 +25,25 @@
 - name: Enable scheduler
   service: name=kube-scheduler enabled=yes state=started
 
-- include: load_nodes.yml
-  when: kube_node_via_api
+- name: Copy minion definition to masters
+  template: src=node.j2 dest=/tmp/node-{{ item }}.yml
+  changed_when: false
+  with_items:
+          groups['minions']
+
+- name: Load minion definition into masters
+  command: /usr/bin/kubectl create -f /tmp/node-{{ item }}.yml
+  register: command_result
+  failed_when: "'already exists' not in command_result.stderr and command_result.rc != 0"
+  changed_when: "command_result.rc == 0"
+  with_items:
+          groups['minions']
+
+- name: Delete minion definitions from masters
+  file: path=/tmp/node-{{ item }}.yml state=absent
+  changed_when: false
+  with_items:
+          groups['minions']
 
 - include: firewalld.yml
   when: has_firewalld.rc == 0
