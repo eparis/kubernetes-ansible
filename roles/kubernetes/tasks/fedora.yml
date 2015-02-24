@@ -2,7 +2,7 @@
 - name: Determine if Fedora 20
   shell: "grep 'Fedora release 20 (Heisenbug)' /etc/fedora-release"
   register: is_f20
-  ignore_errors: yes
+  failed_when: false
   changed_when: false
 
 - name: Remove docker window manager on F20
