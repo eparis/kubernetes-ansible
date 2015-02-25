@@ -5,8 +5,20 @@
 - include: rhel7.yml
   when: is_rhel7.rc == 0
 
-- name: Write etcd global config file
-  template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf
+- name: Determine if etcd-0.4 or newer
+  command: rpm -q etcd
+  register: etcd_ver
+  changed_when: false
+
+- name: Write etcd config file for version 0.4.x
+  template: src=etcd.04.conf.j2 dest=/etc/etcd/etcd.conf
+  when: "'etcd-0.4' in etcd_ver.stdout"
+  notify:
+        - restart etcd
+
+- name: Write etcd config file for version 2.0.x
+  template: src=etcd.20.conf.j2 dest=/etc/etcd/etcd.conf
+  when: "'etcd-2.0' in etcd_ver.stdout"
   notify:
         - restart etcd
 
