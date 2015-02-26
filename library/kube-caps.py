@@ -11,6 +11,7 @@ def main():
 
     facts = {}
     facts['kube_node_via_api'] = True
+    facts['kubelet_use_pre_v10_vars'] = False
 
     result = {}
     result['rc'] = 0
@@ -34,6 +35,9 @@ def main():
 
     if minor < 10:
         facts['kube_node_via_api'] = False
+
+    if minor < 10:
+        facts['kubelet_use_pre_v10_vars'] = True
 
     module.exit_json(**result)
 
