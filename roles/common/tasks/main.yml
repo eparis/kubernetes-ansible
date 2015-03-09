@@ -1,9 +1,12 @@
 ---
 - name: Determine if Atomic
-  command: "grep Atomic /etc/redhat-release"
-  register: is_atomic
-  failed_when: false
+  stat: path=/run/ostree-booted
+  register: s
   changed_when: false
+
+- name: Set the is_atomic fact
+  set_fact:
+    is_atomic: "{{ s.stat.exists }}"
 
 - name: Determine if RHEL7
   shell: "grep 'Red Hat Enterprise Linux.*release 7' /etc/redhat-release"
