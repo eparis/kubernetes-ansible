@@ -1,6 +1,0 @@
-[eparis-kubernetes-epel-7]
-name=Copr repo for kubernetes-epel-7 owned by eparis
-baseurl=http://copr-be.cloud.fedoraproject.org/results/eparis/kubernetes-epel-7/epel-7-$basearch/
-skip_if_unavailable=True
-gpgcheck=0
-enabled=1

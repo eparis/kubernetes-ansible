@@ -4,9 +4,3 @@
 
 - name: Enable RHEL7 Extra Repo
   command: "subscription-manager repos --enable rhel-7-server-extras-rpms"
-
-- name: Enable the RHEL7 Kubernetes copr repo
-  copy: src=eparis-kubernetes-epel-7.repo dest=/etc/yum.repos.d/eparis-kubernetes-epel-7.repo
-
-- name: Enable eparis extra repo
-  copy: src=eparis-extras.repo dest=/etc/yum.repos.d/eparis-extras.repo

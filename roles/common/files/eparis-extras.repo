@@ -1,6 +1,0 @@
-[eparis-extras]
-name=Extra packages needed by kube owned by eparis
-baseurl=http://people.redhat.com/~eparis/atomic-next/copr/static/
-skip_if_unavailable=True
-gpgcheck=0
-enabled=1
