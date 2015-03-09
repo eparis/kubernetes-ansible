@@ -1,8 +1,4 @@
 ---
-- name: Install nhorman Flannel yum repo file
-  copy: src=flannel.repo dest=/etc/yum.repos.d/
-  when: not is_atomic
-
 - name: Install flannel
   yum: name=flannel state=latest
   when: not is_atomic

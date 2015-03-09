@@ -1,6 +1,0 @@
-[flannel]
-name=nhorman flannel repo
-baseurl=http://people.redhat.com/nhorman/repos
-enabled=1
-gpgcheck=0
-skip_if_unavailable=1
