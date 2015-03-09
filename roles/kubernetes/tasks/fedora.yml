@@ -7,9 +7,10 @@
 
 - name: Remove docker window manager on F20
   yum: pkg=docker state=absent
-  when: is_f20.rc == 0
+  when: is_f20.rc == 0 and not is_atomic
 
 - name: Install kubernetes from Fedora
   yum: pkg=kubernetes state=latest
   notify:
           - restart daemons
+  when: not is_atomic

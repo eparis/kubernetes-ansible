@@ -3,3 +3,4 @@
   yum: pkg=cadvisor state=latest
   notify:
           - restart cadvisor
+  when: not is_atomic

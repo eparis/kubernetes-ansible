@@ -3,3 +3,4 @@
   yum: pkg=etcd state=latest
   notify:
           - restart etcd
+  when: not is_atomic

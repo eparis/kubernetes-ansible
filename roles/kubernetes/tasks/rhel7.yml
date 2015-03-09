@@ -3,3 +3,4 @@
   yum: pkg=kubernetes state=latest
   notify:
           - restart daemons
+  when: not is_atomic
