@@ -15,7 +15,7 @@
   changed_when: false
 
 - include: rhel7_repos.yml
-  when: is_rhel7.rc == 0 and is_atomic.rc != 0
+  when: is_rhel7.rc == 0 and not is_atomic
 
 - name: Determine if firewalld installed
   command: "rpm -q firewalld"
