@@ -4,9 +4,14 @@
   register: s
   changed_when: false
 
+- name: Init the is_atomic fact
+  set_fact:
+    is_atomic: false
+
 - name: Set the is_atomic fact
   set_fact:
-    is_atomic: "{{ s.stat.exists }}"
+    is_atomic: true
+  when: s.stat.exists
 
 - name: Determine if RHEL7
   shell: "grep 'Red Hat Enterprise Linux.*release 7' /etc/redhat-release"
