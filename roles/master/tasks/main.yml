@@ -7,7 +7,7 @@
           - restart scheduler
 
 - name: write the new style config file for controller-manager
-  copy: src=controller-manager dest=/etc/kubernetes/controller-manager
+  template: src=controller-manager.j2 dest=/etc/kubernetes/controller-manager
   when: kube_node_via_api
   notify:
           - restart controller-manager
@@ -33,10 +33,13 @@
   service: name=kube-scheduler enabled=yes state=started
 
 - include: load_nodes.yml
-  when: kube_node_via_api
+  when: kube_node_via_api and not is_aws
 
 - include: firewalld.yml
   when: has_firewalld.rc == 0
 
 - include: iptables.yml
   when: has_firewalld.rc != 0 and has_iptables.rc == 0
+
+- include: aws.yml
+  when: is_aws

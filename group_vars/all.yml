@@ -2,3 +2,6 @@ ansible_ssh_user: root
 kube_service_addresses: 10.254.0.0/16 # MUST be defined as a range not used in your infrastructure
 kube_overlay_ip: 4.0.0.0 # defined if using flannel as the overlay network
 kube_overlay_prefix: 16 # defined if using flannel as the overlay network
+
+kube_aws_create_etc_hosts: false # define if /etc/hosts should be created for AWS
+kube_aws_cluster_name: mykube # define your cluster name in AWS. Clusters with different names can coexist in one AWS account.

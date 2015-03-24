@@ -8,10 +8,14 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 # KUBELET_PORT="--port=10250"
 
 # You may leave this blank to use the actual hostname
+{% if is_aws %}
+KUBELET_HOSTNAME="--hostname_override={{ ansible_hostname }}.ec2.internal"
+{% else %}
 KUBELET_HOSTNAME="--hostname_override={{ inventory_hostname }}"
+{% endif %}
 
 # location of the api-server
-KUBELET_API_SERVER="--api_servers=http://{{ groups['masters'][0]}}:8080"
+KUBELET_API_SERVER="--api_servers=http://{{ master_ip_address }}:8080"
 
 # Add your own!
 KUBELET_ARGS=""
