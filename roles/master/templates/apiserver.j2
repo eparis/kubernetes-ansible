@@ -17,7 +17,20 @@ KUBE_API_ADDRESS="--address=0.0.0.0"
 KUBE_SERVICE_ADDRESSES="--portal_net={{ kube_service_addresses }}"
 
 # Location of the etcd cluster
-KUBE_ETCD_SERVERS="--etcd_servers=http://{{ groups['etcd'][0] }}:4001"
+KUBE_ETCD_SERVERS="--etcd_servers=http://{{ etcd_ip_address }}:4001"
+
+
+{% if is_aws %}
+
+# AWS-related options
+KUBE_API_ARGS="--cloud_provider=aws --cloud_config=/etc/aws.conf --cluster_name={{ kube_aws_cluster_name }}"
+
+# Location of AWS credentials
+AWS_CREDENTIAL_FILE="/etc/aws/credentials"
+
+{% else %}
 
 # Add you own!
 KUBE_API_ARGS=""
+
+{% endif %}

@@ -1,4 +1,27 @@
+# Account name of remote user. Ansible will use this user account to ssh into
+# the managed machines. The user must be able to use sudo without asking
+# for password.
 ansible_ssh_user: root
-kube_service_addresses: 10.254.0.0/16 # MUST be defined as a range not used in your infrastructure
-kube_overlay_ip: 4.0.0.0 # defined if using flannel as the overlay network
-kube_overlay_prefix: 16 # defined if using flannel as the overlay network
+
+# Kubernetes internal network. Addresses from this range will be assigned to
+# individual pods. This network must be unused in your network infrastructure!
+kube_service_addresses: 10.254.0.0/16 
+
+# Flannel internal network (optional). When flannel is used, it will assign IP
+# addresses from this range to individual pods.
+# This network must be unused in your network infrastructure!
+kube_overlay_ip: 4.0.0.0
+# Prefix length of kube_overlay_ip range.
+kube_overlay_prefix: 16
+
+
+
+# Amazon Web Services specific options (ignore when running outside AWS).
+
+# When set to "true", this playbook will generate /etc/hosts on all managed
+# machines with hostnames and IP addresses of all machines in inventory file.
+# Use only when your DNS is not working.
+kube_aws_create_etc_hosts: false
+
+# Name of the cluster to create. It must be unique in your AWS account.
+kube_aws_cluster_name: mykube
