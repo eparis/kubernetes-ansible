@@ -20,7 +20,12 @@ Stick the system information into the 'inventory' file.
 
 See the `pre-setup/` directory.
 
-### Set up the services IP addresses
+### Configure your cluster
+
+Configure `group_vars/all.yml` to reflect your needs. The options should be
+described there in full detail.
+
+#### Services IP addresses (`kube_service_addresses`)
 
 Kubernetes services have fake IP addresses.  You must specify a range of IP
 addresses which will not conflict with anything in your infrastructure which
@@ -37,6 +42,11 @@ This works on RHEL7, Atomic, F20, F21 and rawhide.
 
 For RHEL7 it will set up rhn subscriptions.  Put your username in a file named
 `~/rhn_username`.  Put your rhn password into a file named `~/rhn_password`.
+
+When DNS setup is enabled, it may take some time for Kubernetes (and Docker
+inside) to download the images and start the DNS pod. Watch `kubectl get pods`
+to see when `kube-dns-*` pod enters `Running` state. Try to resolve
+`kube-dns.default.<domainname>` to check it's really working.
 
 ### Set up flannel, a network overlay (optional)
 

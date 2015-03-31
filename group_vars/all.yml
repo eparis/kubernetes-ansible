@@ -15,6 +15,31 @@ kube_overlay_ip: 4.0.0.0
 kube_overlay_prefix: 16
 
 
+# Internal DNS configuration.
+# Kubernetes can create and mainatain its own DNS server to resolve service names
+# into appropriate IP addresses. It's highly advisable to run such DNS server,
+# as it greatly simplifies configuration of your applications - you can use
+# service names instead of magic environment variables.
+# You still must manually configure all your containers to use this DNS server,
+# Kubernetes won't do this for you (yet).
+
+# Turn this varable to 'false' to disable whole DNS configuration.
+dns_setup: true
+
+# Internal DNS domain name.
+# This domain must not be used in your network. Services will be discoverable
+# under <service-name>.<namespace>.<domainname>, e.g.
+# myservice.default.kube.local
+dns_domain: kube.local
+
+# IP address of the DNS server.
+# Kubernetes will create a pod with several containers, serving as the DNS
+# server and expose it under this IP address. The IP address must be from
+# the range specified as kube_service_addresses above.
+# And this is the IP address you should use as address of the DNS server
+# in your containers.
+dns_server: 10.254.0.10
+
 
 # Amazon Web Services specific options (ignore when running outside AWS).
 
