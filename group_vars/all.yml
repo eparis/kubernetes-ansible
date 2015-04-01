@@ -3,9 +3,11 @@
 # for password.
 ansible_ssh_user: root
 
-# Kubernetes internal network. Addresses from this range will be assigned to
-# individual pods. This network must be unused in your network infrastructure!
-kube_service_addresses: 10.254.0.0/16 
+# Kubernetes internal network for services.
+# Kubernetes services will get fake IP addresses from this range.
+# This range must not conflict with anything in your infrastructure. These
+# addresses do not need to be routable and must just be an unused block of space.
+kube_service_addresses: 10.254.0.0/16
 
 # Flannel internal network (optional). When flannel is used, it will assign IP
 # addresses from this range to individual pods.

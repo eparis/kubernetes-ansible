@@ -25,13 +25,6 @@ See the `pre-setup/` directory.
 Configure `group_vars/all.yml` to reflect your needs. The options should be
 described there in full detail.
 
-#### Services IP addresses (`kube_service_addresses`)
-
-Kubernetes services have fake IP addresses.  You must specify a range of IP
-addresses which will not conflict with anything in your infrastructure which
-kube can use for services. These addresses do not need to be routable and must
-just be an unused block of space. To do so edit `group_vars/all.yml`.
-
 ### Set up the actual kubernetes cluster
 
 You already did the config!  Just run the setup::
