@@ -11,6 +11,7 @@ def main():
 
     facts = {}
     facts['kube_node_via_api'] = True
+    facts['kube_node_v1beta3'] = True
     facts['kubelet_use_pre_v10_vars'] = False
 
     result = {}
@@ -38,6 +39,14 @@ def main():
 
     if minor < 10:
         facts['kubelet_use_pre_v10_vars'] = True
+
+    args = ("kubectl", "apiversions")
+    popen = subprocess.Popen(args, stdout=subprocess.PIPE)
+    popen.wait()
+
+    output = popen.stdout.read()
+    if "v1beta3" not in output:
+	facts['kube_node_v1beta3'] = False
 
     module.exit_json(**result)
 
