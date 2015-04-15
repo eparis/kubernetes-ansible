@@ -21,6 +21,7 @@
 
 - name: Enable cadvisor
   service: name=cadvisor enabled=yes state=started
+  when: has_cadvisor.rc == 0
 
 - name: Enable kubelet
   service: name=kubelet enabled=yes state=started
