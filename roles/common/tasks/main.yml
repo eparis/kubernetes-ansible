@@ -34,6 +34,12 @@
   failed_when: "'package iptables-services is not installed' not in has_iptables.stdout and has_iptables.rc != 0"
   changed_when: false
 
+- name: Determine if cadvisor installed
+  command: "rpm -q cadvisor"
+  register: has_cadvisor
+  failed_when: "'package cadvisor is not installed' not in has_cadvisor.stdout and has_cadvisor.rc != 0"
+  changed_when: false
+
 - name: Set IP address variables
   set_fact:
     master_ip_address: "{{ hostvars[groups['masters'][0]]['ansible_default_ipv4']['address'] }}"
