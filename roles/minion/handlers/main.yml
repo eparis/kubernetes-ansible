@@ -5,9 +5,6 @@
           - restart kubelet
           - restart proxy
 
-- name: restart cadvisor
-  service: name=cadvisor state=restarted
-
 - name: restart kubelet
   service: name=kubelet state=restarted
 
