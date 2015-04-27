@@ -1,6 +1,0 @@
----
-- name: Make sure cadvisor is up to date
-  yum: pkg=cadvisor state=latest
-  notify:
-          - restart cadvisor
-  when: not is_atomic

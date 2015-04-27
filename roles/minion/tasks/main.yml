@@ -1,10 +1,4 @@
 ---
-- include: fedora.yml
-  when: is_rhel7.rc != 0
-
-- include: rhel7.yml
-  when: is_rhel7.rc == 0
-
 - name: write the config files for kubelet
   template: src=kubelet.j2 dest=/etc/kubernetes/kubelet
   when: not kubelet_use_pre_v10_vars
@@ -18,10 +12,6 @@
   template: src=proxy.j2 dest=/etc/kubernetes/proxy
   notify:
           - restart proxy
-
-- name: Enable cadvisor
-  service: name=cadvisor enabled=yes state=started
-  when: has_cadvisor.rc == 0
 
 - name: Enable kubelet
   service: name=kubelet enabled=yes state=started
