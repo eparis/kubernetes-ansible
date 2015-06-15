@@ -1,6 +1,7 @@
 ---
 - name: restart etcd
   service: name=etcd state=restarted
+  when: started_etcd.changed == false
 
 - name: restart iptables
   service: name=iptables state=restarted
