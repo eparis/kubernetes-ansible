@@ -11,7 +11,7 @@ KUBELET_ADDRESS="--address=0.0.0.0"
 KUBELET_HOSTNAME="--hostname_override={{ inventory_hostname }}"
 
 # location of the api-server
-KUBELET_API_SERVER="--api_servers=https://{{ groups['masters'][0]}}:443"
+KUBELET_API_SERVER="--api_servers=https://{{ groups['masters'][0]}}:6443"
 
 # Add your own!
 {% if dns_setup %}
