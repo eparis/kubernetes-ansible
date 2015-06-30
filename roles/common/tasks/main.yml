@@ -13,30 +13,26 @@
     is_atomic: true
   when: s.stat.exists
 
-- name: Determine if RHEL7
-  shell: "grep 'Red Hat Enterprise Linux.*release 7' /etc/redhat-release"
-  register: is_rhel7
-  failed_when: false
+- name: Determine if has rpm
+  stat: path=/usr/bin/rpm
+  register: s
   changed_when: false
 
-- include: rhel7_repos.yml
-  when: is_rhel7.rc == 0 and not is_atomic
-
-- name: Determine if firewalld installed
-  command: "rpm -q firewalld"
-  register: has_firewalld
-  failed_when: "'package firewalld is not installed' not in has_firewalld.stdout and has_firewalld.rc != 0"
-  changed_when: false
-
-- name: Determine if iptables-services installed
-  command: "rpm -q iptables-services"
-  register: has_iptables
-  failed_when: "'package iptables-services is not installed' not in has_iptables.stdout and has_iptables.rc != 0"
-  changed_when: false
-
-- name: Set IP address variables
+- name: Init the has_rpm fact
   set_fact:
-    master_ip_address: "{{ hostvars[groups['masters'][0]]['ansible_default_ipv4']['address'] }}"
-    etcd_ip_address: "{{ hostvars[groups['etcd'][0]]['ansible_default_ipv4']['address'] }}"
+    has_rpm: false
 
-- include: aws.yml
+- name: Set the has_rpm fact
+  set_fact:
+    has_rpm: true
+  when: s.stat.exists
+
+# collect information about what packages are installed
+- include: rpm.yml
+  when: has_rpm
+
+- include: centos.yml
+  when: ansible_distribution == "CentOS"
+
+- include: fedora-install.yml
+  when: not is_atomic and ansible_distribution == "Fedora"

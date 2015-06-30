@@ -1,36 +1,27 @@
 ---
-- include: fedora.yml
-  when: is_rhel7.rc != 0
-
-- include: rhel7.yml
-  when: is_rhel7.rc == 0
-
-- name: Determine if etcd-0.4 or newer
-  command: rpm -q etcd
-  register: etcd_ver
-  changed_when: false
-
-- name: Write etcd config file for version 0.4.x
-  template: src=etcd.04.conf.j2 dest=/etc/etcd/etcd.conf
-  when: "'etcd-0.4' in etcd_ver.stdout"
+- name: Install etcd
+  action: "{{ ansible_pkg_mgr }}"
+  args:
+        name: etcd
+        state: latest
   notify:
-        - restart etcd
+    - restart etcd
+  when: not is_atomic
 
-- name: Write etcd config file for version 2.0.x
-  template: src=etcd.20.conf.j2 dest=/etc/etcd/etcd.conf
-  when: "'etcd-2.0' in etcd_ver.stdout"
+- name: Write etcd config file
+  template: src=etcd.conf.j2 dest=/etc/etcd/etcd.conf
   notify:
-        - restart etcd
+    - restart etcd
 
 - name: Enable etcd
   service: name=etcd enabled=yes
 
 - name: Start etcd
   service: name=etcd state=started
-  register: started_etcd
+  register: etcd_started
 
 - include: firewalld.yml
-  when: has_firewalld.rc == 0
+  when: has_firewalld
 
 - include: iptables.yml
-  when: has_firewalld.rc != 0 and has_iptables.rc == 0
+  when: not has_firewalld and has_iptables

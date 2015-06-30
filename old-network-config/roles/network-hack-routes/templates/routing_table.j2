@@ -1,3 +1,0 @@
-{% for host in groups['minions'] %}
-   {{ hostvars[host]['ansible_kbr0']['ipv4']['network'] }}/24 via {{ hostvars[host]['ansible_default_ipv4']['address'] }}
-{% endfor %}

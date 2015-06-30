@@ -1,6 +1,0 @@
-#!/bin/bash
-
-nmcli connection down "Wired connection 1"
-nmcli connection reload {{ ansible_default_ipv4.interface }}
-nmcli connection down {{ ansible_default_ipv4.interface }}
-nmcli connection up {{ ansible_default_ipv4.interface }}

@@ -1,6 +1,0 @@
-127.0.0.1       localhost.localdomain   localhost
-::1     localhost6.localdomain6 localhost6
-
-{% for host in groups['all'] %}
-{{ hostvars[host]['ansible_default_ipv4']['address'] }} {{ hostvars[host]['ansible_hostname'] }} {{ hostvars[host]['ansible_hostname'] }}.ec2.internal
-{% endfor %}

@@ -1,9 +1,0 @@
-- stat: path=/var/lib/kubelet/auth
-  register: p
-
-- name: copy empty auth file to kubelet
-  copy: src=empty.json dest=/var/lib/kubelet/auth
-  when: p.stat.isfile is not defined
-
-- name: copy the old variable name kubelet config file
-  template: src=kubelet-old.j2 dest=/etc/kubernetes/kubelet

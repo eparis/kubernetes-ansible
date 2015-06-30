@@ -1,14 +1,23 @@
 ---
 - include: fedora.yml
-  when: is_rhel7.rc != 0
+  when: ansible_distribution == "Fedora"
 
-- include: rhel7.yml
-  when: is_rhel7.rc == 0
+- name: Update {{ kube_script_dir }} if this is atomic
+  set_fact:
+    kube_script_dir: "/usr/local/libexec/kubernretes"
+  when: is_atomic and kube_script_dir == "/usr/libexec/kubernetes"
+
+- name: Create kubernetes config directory
+  file: path={{ kube_config_dir }} state=directory
+
+- name: Create kubernetes script directory
+  file: path={{ kube_script_dir }} state=directory
 
 - name: write the global config file
-  template: src=config.j2 dest=/etc/kubernetes/config
+  template: src=config.j2 dest={{ kube_config_dir }}/config
   notify:
-          - restart daemons
+    - restart daemons
 
-- name: collect facts about the version of kubernetes
-  kube-caps:
+- include: secrets.yml
+  tags:
+    secrets

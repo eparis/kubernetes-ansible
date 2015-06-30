@@ -1,6 +1,0 @@
----
-- name: Install kubernetes from RHEL7 packages
-  yum: pkg=kubernetes state=latest
-  notify:
-          - restart daemons
-  when: not is_atomic

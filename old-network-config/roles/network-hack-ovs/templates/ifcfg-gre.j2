@@ -1,7 +1,0 @@
-DEVICE=gre{{ item.0 }}
-ONBOOT=yes
-DEVICETYPE=ovs
-TYPE=OVSTunnel
-OVS_BRIDGE=obr0
-OVS_TUNNEL_TYPE=gre
-OVS_TUNNEL_OPTIONS="options:remote_ip={{ hostvars[item.1]['ansible_default_ipv4']['address'] }}"

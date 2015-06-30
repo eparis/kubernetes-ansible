@@ -3,17 +3,5 @@
 
 # defaults from config and apiserver should be adequate
 
-{% if is_aws %}
-
-# AWS related options
-KUBE_CONTROLLER_MANAGER_ARGS="--cloud_provider=aws --sync_nodes=true --cloud_config=/etc/aws.conf --minion_regexp='{{ kube_aws_cluster_name }}-minion.*'"
-
-# Location of AWS credentials
-AWS_CREDENTIAL_FILE="/etc/aws/credentials"
-
-{% else %}
-
-# Add you own!
-KUBE_CONTROLLER_MANAGER_ARGS=""
-
-{% endif %}
+# Add your own!
+KUBE_CONTROLLER_MANAGER_ARGS="--kubeconfig={{ kube_config_dir }}/controller-manager.kubeconfig"

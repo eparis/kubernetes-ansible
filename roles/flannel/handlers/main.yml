@@ -2,9 +2,10 @@
 - name: restart flannel
   service: name=flanneld state=restarted
   notify:
-          - stop docker
-          - delete docker0
-          - start docker
+    - stop docker
+    - delete docker0
+    - start docker
+  when: inventory_hostname in groups['nodes']
 
 - name: stop docker
   service: name=docker state=stopped
@@ -15,7 +16,3 @@
 
 - name: start docker
   service: name=docker state=started
-
-- name: restart kubelet
-  service: name=kubelet state=restarted
-  when: inventory_hostname in groups['minions']

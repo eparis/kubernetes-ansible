@@ -1,8 +1,0 @@
-###
-# The following values are used to configure the kubernetes controller-manager
-
-# Comma seperated list of minions
-KUBELET_ADDRESSES="--machines={{ groups['minions']|join(',') }}"
-
-# Add you own!
-KUBE_CONTROLLER_MANAGER_ARGS=""
