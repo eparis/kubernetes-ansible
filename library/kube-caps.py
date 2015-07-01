@@ -36,8 +36,6 @@ def main():
 
     if minor < 10:
         facts['kube_node_via_api'] = False
-
-    if minor < 10:
         facts['kubelet_use_pre_v10_vars'] = True
 
     args = ("kubectl", "apiversions")
